@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Coursework-DS
 
 ##Gui Chat
@@ -25,6 +24,3 @@ To run client use command:
 python3 clientGIU.py
 ```
 if you run it on Linux,or run it in IDE if you use Windows
-=======
-# CourseWork-DS
->>>>>>> 749de625af564ec4b39c34289ef9da0df11952ae
