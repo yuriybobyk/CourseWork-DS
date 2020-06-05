@@ -26,12 +26,12 @@ class Client:
 
     def initialize_socket(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        remote_ip = '127.0.0.1'
-        remote_port = 10318
+        remote_ip = 'localhost'
+        remote_port = 10319
         self.client_socket.connect((remote_ip, remote_port))
 
     def initialize_gui(self):
-        self.root.title("Socket Chat")
+        self.root.title("Socket GUI")
         self.root.resizable(0, 0)
         self.display_filename_section()
         self.display_echo_text_section()
@@ -52,7 +52,7 @@ class Client:
             message = buffer.decode('utf-8')
             if "joined" in message:
                 user = message.split(":")[1]
-                message = user + " has joined"
+                message = user + " has now joined"
                 self.chat_transcript_area.insert('end', message + '\n')
                 self.chat_transcript_area.yview(END)
             elif "echo" in message:
@@ -71,12 +71,12 @@ class Client:
         Label(frame, text='Enter your name:', font=("Helvetica", 16)).pack(side='left', padx=10)
         self.name_widget = Entry(frame, width=50, borderwidth=2)
         self.name_widget.pack(side='left', anchor='e')
-        self.join_button = Button(frame, text="Join", width=10, command=self.on_join).pack(side='left')
+        self.join_button = Button(frame, text="Join chat", width=10, command=self.on_join).pack(side='left')
         frame.pack(side='top', anchor='nw')
 
     def display_chat_box(self):
         frame = Frame()
-        Label(frame, text='Chat Box:', font=("Serif", 12)).pack(side='top', anchor='w')
+        Label(frame, text='GUI chat box:', font=("Serif", 12)).pack(side='top', anchor='w')
         self.chat_transcript_area = Text(frame, width=60, height=10, font=("Serif", 12))
         scrollbar = Scrollbar(frame, command=self.chat_transcript_area.yview, orient=VERTICAL)
         self.chat_transcript_area.config(yscrollcommand=scrollbar.set)
@@ -87,7 +87,7 @@ class Client:
 
     def display_chat_entry_box(self):
         frame = Frame()
-        Label(frame, text='Enter message:', font=("Serif", 12)).pack(side='top', anchor='w')
+        Label(frame, text='Your message:', font=("Serif", 12)).pack(side='top', anchor='w')
         self.enter_text_widget = Text(frame, width=60, height=3, font=("Serif", 12))
         self.enter_text_widget.pack(side='left', pady=15)
         self.enter_text_widget.bind('<Return>', self.on_enter_key_pressed)
@@ -140,7 +140,7 @@ class Client:
 
     def display_filename_section(self):
         frame = Frame()
-        Label(frame, text='Enter a filename:', font=('Helvetica', 12)).pack(side='left', padx=10)
+        Label(frame, text='Enter your filename:', font=('Helvetica', 12)).pack(side='left', padx=10)
         self.filename_widget = Entry(frame, width=50, borderwidth=2)
         self.filename_widget.pack(side='left', anchor='sw')
         self.on_generate_button = Button(frame, text='Generate', width=10, command=self.on_generate_button).pack(side=
@@ -159,7 +159,7 @@ class Client:
         file_name = self.filename_widget.get()
         if len(file_name) == 0:
             messagebox.showerror(
-                "Enter a filename to generate a file")
+                "Enter your filename to generate a file")
             return
         else:
             self.filename_widget.config(state='disabled')
@@ -168,22 +168,22 @@ class Client:
 
     def display_ping_section(self):
         frame = Frame()
-        self.ping_button = Button(frame, text="Ping", width=10, command=self.on_ping).pack(side='bottom')
+        self.ping_button = Button(frame, text="Try Ping", width=10, command=self.on_ping).pack(side='bottom')
         frame.pack(side='bottom', anchor='s')
 
     def on_ping(self):
-        hostname = "127.0.0.1"
+        hostname = "localhost"
         response = os.system("ping -c 1 " + hostname)
         # check the response...
         if response == 0:
-            pingstatus = "Network Active"
+            pingstatus = "Ping Active"
         else:
-            pingstatus = "Network Error"
+            pingstatus = "Ping Error"
 
         return self.chat_transcript_area.insert('end', pingstatus + '\n')
 
     def on_close_window(self):
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        if messagebox.askokcancel("Quit", "Do you want to finish sesion?"):
             self.root.destroy()
             self.client_socket.close()
             exit(0)
