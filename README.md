@@ -1,9 +1,9 @@
 # Coursework-DS
 
-##Gui Chat
+## Gui Chat
 This repository contains Client-Server chat
 
-##Techologies:
+## Techologies:
 
 - TCP-Sockets
 - Libraries ([tkinter](https://python-scripts.com/tkinter-introduction), [TCP-socket](http://www.steves-internet-guide.com/tcpip-ports-sockets/), [threading](http://python-3.ru/page/import-threading) )
